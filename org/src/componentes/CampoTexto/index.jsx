@@ -5,7 +5,7 @@ const CampoTexto = (props) => {
   return (
     <div className="campo-texto">
       <label>{props.titulo}</label>
-      <input placeholder={placeholderMod} />
+      <input placeholder={placeholderMod} required={props.required} />
     </div>
   );
 };
