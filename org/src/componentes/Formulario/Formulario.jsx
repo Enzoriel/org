@@ -4,7 +4,7 @@ import ListaOpciones from "../ListaOpciones/ListaOpciones";
 import Boton from "../Boton";
 import { useState } from "react";
 
-const Formulario = () => {
+const Formulario = (props) => {
   const [nombre, setNombre] = useState("");
   const [puesto, setPuesto] = useState("");
   const [foto, setFoto] = useState("");
@@ -23,7 +23,7 @@ const Formulario = () => {
         <CampoTexto titulo="Nombre" placeholder="Ingrese un nombre" required valor={nombre} setValor={setNombre} />
         <CampoTexto titulo="Puesto" placeholder="Ingrese su puesto" required valor={puesto} setValor={setPuesto} />
         <CampoTexto titulo="Foto" placeholder="Ingrese enlace de la foto" required valor={foto} setValor={setFoto} />
-        <ListaOpciones valor={equipo} setValor={setEquipo} />
+        <ListaOpciones valor={equipo} setValor={setEquipo} equipos={props.equipos} />
         <Boton>Crear</Boton>
       </form>
     </section>
