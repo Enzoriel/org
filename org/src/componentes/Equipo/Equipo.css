@@ -11,3 +11,9 @@
   color: #212121;
   display: inline-block;
 }
+
+.colaboradores {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
