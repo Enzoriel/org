@@ -4,9 +4,11 @@ import Formulario from "./componentes/Formulario/Formulario";
 import Header from "./componentes/Header/Header";
 import MiOrg from "./componentes/MiOrg";
 import Equipo from "./componentes/Equipo";
+import Footer from "./componentes/Footer";
 
 function App() {
   const [mostrarFormulario, actualizarMostrar] = useState(false);
+  const [colaboradores, setColaboradores] = useState([]);
 
   const cambiarMostrar = () => {
     actualizarMostrar(!mostrarFormulario);
@@ -50,14 +52,26 @@ function App() {
     },
   ];
 
+  const registrarColaborador = (colaborador) => {
+    console.log("Nuevo colaborador", colaborador);
+    setColaboradores([...colaboradores, colaborador]);
+  };
+
   return (
     <div className="App">
       <Header />
-      {mostrarFormulario && <Formulario equipos={equipos.map((equipo) => equipo.titulo)} />}
+      {mostrarFormulario && (
+        <Formulario equipos={equipos.map((equipo) => equipo.titulo)} registrarColaborador={registrarColaborador} />
+      )}
       <MiOrg cambiarMostrar={cambiarMostrar} />
       {equipos.map((equipos) => (
-        <Equipo equipo={equipos} key={equipos.titulo} />
+        <Equipo
+          equipo={equipos}
+          key={equipos.titulo}
+          colaboradores={colaboradores.filter((colab) => colab.equipo === equipos.titulo)}
+        />
       ))}
+      <Footer />
     </div>
   );
 }
