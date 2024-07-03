@@ -3,6 +3,7 @@ import CampoTexto from "../CampoTexto";
 import ListaOpciones from "../ListaOpciones/ListaOpciones";
 import Boton from "../Boton";
 import { useState } from "react";
+import { v4 as uuid } from "uuid";
 
 const Formulario = (props) => {
   const [nombre, setNombre] = useState("");
@@ -14,7 +15,8 @@ const Formulario = (props) => {
 
   const manejarEnvio = (event) => {
     event.preventDefault();
-    let enviarDatos = { nombre, puesto, foto, equipo };
+    const id = uuid();
+    let enviarDatos = { id, nombre, puesto, foto, equipo };
     registrarColaborador(enviarDatos);
   };
 
