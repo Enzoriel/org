@@ -16,6 +16,7 @@ function App() {
       puesto: "Estudiante",
       foto: "http://github.com/enzoriel.png",
       equipo: "Front End",
+      fav: true,
     },
     {
       id: uuid(),
@@ -23,6 +24,7 @@ function App() {
       puesto: "Estudiante",
       foto: "http://github.com/enzoriel.png",
       equipo: "Front End",
+      fav: false,
     },
     {
       id: uuid(),
@@ -30,6 +32,7 @@ function App() {
       puesto: "Estudiante",
       foto: "http://github.com/enzoriel.png",
       equipo: "Devops",
+      fav: false,
     },
     {
       id: uuid(),
@@ -37,6 +40,7 @@ function App() {
       puesto: "Estudiante",
       foto: "http://github.com/enzoriel.png",
       equipo: "Móvil",
+      fav: false,
     },
     {
       id: uuid(),
@@ -44,6 +48,7 @@ function App() {
       puesto: "Estudiante",
       foto: "http://github.com/enzoriel.png",
       equipo: "UX y Diseño",
+      fav: false,
     },
   ]);
   const [equipos, setEquipos] = useState([
@@ -111,15 +116,36 @@ function App() {
     setColaboradores([...colaboradores, colaborador]);
   };
 
-  const eliminarColaborador = () => {
-    console.log("Colaborador eliminado");
+  const eliminarColaborador = (id) => {
+    console.log("Colaborador eliminado", id);
+    const nuevosColaboradores = colaboradores.filter((colaboradores) => colaboradores.id !== id);
+    setColaboradores(nuevosColaboradores);
+  };
+
+  const crearEquipo = (nuevoEquipo) => {
+    setEquipos([...equipos, { ...nuevoEquipo, id: uuid() }]);
+  };
+
+  const favorito = (id) => {
+    const colaboradoresActualizados = colaboradores.map((colaboradores) => {
+      if (colaboradores.id === id) {
+        colaboradores.fav = !colaboradores.fav;
+      }
+      return colaboradores;
+    });
+
+    setColaboradores(colaboradoresActualizados);
   };
 
   return (
     <div className="App">
       <Header />
       {mostrarFormulario && (
-        <Formulario equipos={equipos.map((equipo) => equipo.titulo)} registrarColaborador={registrarColaborador} />
+        <Formulario
+          equipos={equipos.map((equipo) => equipo.titulo)}
+          registrarColaborador={registrarColaborador}
+          crearEquipo={crearEquipo}
+        />
       )}
       <MiOrg cambiarMostrar={cambiarMostrar} />
       {equipos.map((equipos) => (
@@ -129,6 +155,7 @@ function App() {
           colaboradores={colaboradores.filter((colab) => colab.equipo === equipos.titulo)}
           eliminar={eliminarColaborador}
           color={cambiarColor}
+          like={favorito}
         />
       ))}
       <Footer />
